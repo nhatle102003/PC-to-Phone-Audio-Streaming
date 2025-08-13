@@ -19,6 +19,6 @@ workflows:
       - name: Build iOS app
         script: |
           cd ios_frontend
-          flutter build ios --release --no-codesign
+          flutter build ipa --release --no-codesign
     artifacts:
       - build/ios/iphoneos/*.ipa
