@@ -11,14 +11,14 @@ workflows:
     scripts:
       - name: Install dependencies
         script: |
-          cd ios-frontend
+          cd ios_frontend
           flutter pub get
           cd ios
           pod install
           cd ..
       - name: Build iOS app
         script: |
-          cd ios-frontend
+          cd ios_frontend
           flutter build ios --release --no-codesign
     artifacts:
       - build/ios/iphoneos/*.ipa
