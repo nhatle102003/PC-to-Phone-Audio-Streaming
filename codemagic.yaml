@@ -13,20 +13,12 @@ workflows:
         script: |
           cd ios_frontend
           flutter pub get
-          cd ios
           pod install
           cd ..
       - name: Build iOS app
         script: |
           cd ios_frontend
-          flutter build ipa --release --no-codesign
-           - name: Create unsigned IPA
-      - name: Build iOS IPA
-        script: |
-          mkdir -p build/ios/ipa
-          xcodebuild -exportArchive \
-            -archivePath build/ios/archive/Runner.xcarchive \
-            -exportOptionsPlist exportOptions.plist \
-            -exportPath build/ios/ipa
+          flutter build ipa --release
+          cd ..
     artifacts:
-      - build/ios/iphoneos/*.ipa
+      - ios_frontend/build/ios/ipa/*.ipa
