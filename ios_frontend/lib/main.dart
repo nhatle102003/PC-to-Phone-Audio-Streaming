@@ -52,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
       interleaved: true,
       numChannels: 2,
       sampleRate: 48000,
-      bufferSize: 8192,
+      bufferSize: 16000,
     );
 
     _channel.stream.listen((event) {
