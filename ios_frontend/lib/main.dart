@@ -38,7 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final _channel = WebSocketChannel.connect(Uri.parse("ws://100.92.36.5:8083"));
   final FlutterSoundPlayer _player = FlutterSoundPlayer();
-  OpusDecoder? decoder = OpusDecoder.create(sampleRate: 44100, channels: 2);
+  OpusDecoder? decoder = OpusDecoder.create(sampleRate: 48000, channels: 2);
   @override
   void initState() {
     super.initState();
@@ -51,13 +51,13 @@ class _MyHomePageState extends State<MyHomePage> {
       codec: Codec.pcm16,
       interleaved: true,
       numChannels: 2,
-      sampleRate: 44100,
+      sampleRate: 48000,
       bufferSize: 8192,
     );
 
     _channel.stream.listen((event) {
       if (event is Uint8List) {
-        final pcm = decoder!.decode(event, 44100 ~/ 50);
+        final pcm = decoder!.decode(event, 48000 ~/ 50);
         if (pcm != null) {
           _player.uint8ListSink!.add(pcm);
         } else {
