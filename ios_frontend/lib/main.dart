@@ -57,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     _channel.stream.listen((event) {
       if (event is Uint8List) {
-        final pcm = decoder!.decode(event, 48000 ~/ 50);
+        final pcm = decoder!.decode(event, (48000 * 20) ~/ 1000);
         if (pcm != null) {
           _player.uint8ListSink!.add(pcm);
         } else {
