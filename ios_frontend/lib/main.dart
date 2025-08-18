@@ -1,19 +1,21 @@
+import 'dart:async';
 import 'dart:typed_data';
 
-
+import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_opus/flutter_opus.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:flutter_sound/flutter_sound.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await AudioService.init(builder: () =>BaseAudioHandler(), config: AudioServiceConfig());
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -39,6 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final _channel = WebSocketChannel.connect(Uri.parse("ws://100.92.36.5:8083"));
   final FlutterSoundPlayer _player = FlutterSoundPlayer();
   OpusDecoder? decoder = OpusDecoder.create(sampleRate: 48000, channels: 2);
+
   @override
   void initState() {
     super.initState();
