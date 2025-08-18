@@ -38,6 +38,7 @@ dependencies:
   flutter_sound: ^9.28.0
   opus_dart: ^3.0.1
   flutter_opus: ^1.0.1
+  audio_service: ^0.18.18
 
 dev_dependencies:
   flutter_test:
