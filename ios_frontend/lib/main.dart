@@ -9,7 +9,7 @@ import 'package:flutter_sound/flutter_sound.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await AudioService.init(builder: () =>BaseAudioHandler(), config: AudioServiceConfig());
+  await AudioService.init(builder: () =>_MyAudioHandler(), config: AudioServiceConfig());
   runApp(const MyApp());
 }
 
@@ -36,15 +36,12 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-
+class _MyAudioHandler extends BaseAudioHandler{
   final _channel = WebSocketChannel.connect(Uri.parse("ws://100.92.36.5:8083"));
   final FlutterSoundPlayer _player = FlutterSoundPlayer();
   OpusDecoder? decoder = OpusDecoder.create(sampleRate: 48000, channels: 2);
 
-  @override
-  void initState() {
-    super.initState();
+  _MyAudioHandler(){
     _initPlayer();
   }
 
@@ -75,20 +72,20 @@ class _MyHomePageState extends State<MyHomePage> {
       debugPrint("WebSocket closed");
     });
   }
+    @override
+    Future<void> stop() async{
+      _channel.sink.close();
+      _player.closePlayer();
+      return super.stop();
+      }
+}
 
+class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(widget.title)),
       body: const Center(child: Text('Streaming audio...')),
-
     );
-    
-  }
-  @override
-  void dispose() {
-    _channel.sink.close();
-    _player.closePlayer();
-    super.dispose();
   }
 }
