@@ -49,5 +49,11 @@
 	<array>
 		<string>audio</string>
 	</array>
+	<key>AVAudioSessionCategory</key>
+	<string>AVAudioSessionCategoryPlayback</string>
+	<key>AVAudioSessionCategoryOptions</key>
+	<array>
+		<string>AVAudioSessionCategoryOptionMixWithOthers</string>
+	</array>
 </dict>
 </plist>
