@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:typed_data';
-
+import 'package:audio_session/audio_session.dart';
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_opus/flutter_opus.dart';
@@ -47,6 +47,8 @@ class _MyAudioHandler extends BaseAudioHandler{
 
   Future<void> _initPlayer() async {
     await _player.openPlayer();
+    final session = await AudioSession.instance;
+    await session.configure(AudioSessionConfiguration.music());
     await _player.startPlayerFromStream(
       codec: Codec.pcm16,
       interleaved: true,
@@ -78,6 +80,11 @@ class _MyAudioHandler extends BaseAudioHandler{
       _player.closePlayer();
       return super.stop();
       }
+
+    @override
+    Future<void> onTaskRemoved() async {
+      debugPrint("App was closed, but keeping audio alive");
+    }
 }
 
 class _MyHomePageState extends State<MyHomePage> {

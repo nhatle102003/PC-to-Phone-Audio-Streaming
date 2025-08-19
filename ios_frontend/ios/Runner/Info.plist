@@ -54,6 +54,8 @@
 	<key>AVAudioSessionCategoryOptions</key>
 	<array>
 		<string>AVAudioSessionCategoryOptionMixWithOthers</string>
+		<string>AVAudioSessionCategoryOptionAllowAirPlay</string>
+		<string>AVAudioSessionCategoryOptionAllowBluetooth</string>
 	</array>
 </dict>
 </plist>
